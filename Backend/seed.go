@@ -30,7 +30,7 @@ func seed(db *gorm.DB){
 	for i := 0; i < 10; i++ {
 		recipe := Recipe{
 			Name:       faker.Word() + " Recipe",
-			ImageUrls:  []string{faker.URL()},
+			ImageUrls:  faker.URL(),
 			CategoryID:   categoryIDs[rand.Intn(len(categoryIDs))],
 			DifficultyID: difficultyIDs[rand.Intn(len(difficultyIDs))],
 			PrepTime:   uint(rand.Intn(20) + 10),

@@ -12,13 +12,14 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "../global.css";
 
-import { useColorScheme } from "@/Frontend/components/useColorScheme";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./(screens)/HomeScreen";
 import ProfileScreen from "./(screens)/ProfileScreen";
 import SearchScreen from "./(screens)/SearchScreen";
 import AddRecipeScreen from "./(screens)/AddRecipeScreen";
 import { Ionicons } from "@expo/vector-icons";
+import { useColorScheme } from "@/components/useColorScheme.web";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -63,34 +64,36 @@ function RootLayoutNav() {
   const Tab = createBottomTabNavigator();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
+    <QueryClientProvider client={new QueryClient()}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
 
-            if (route.name === "Home") {
-              iconName = "home-outline";
-            } else if (route.name === "Search") {
-              iconName = "search-outline";
-            } else if (route.name === "Add Recipe") {
-              iconName = "add-circle-outline";
-            } else if (route.name === "Profile") {
-              iconName = "person-outline";
-            }
+              if (route.name === "Home") {
+                iconName = "home-outline";
+              } else if (route.name === "Search") {
+                iconName = "search-outline";
+              } else if (route.name === "Add Recipe") {
+                iconName = "add-circle-outline";
+              } else if (route.name === "Profile") {
+                iconName = "person-outline";
+              }
 
-            //@ts-ignore
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Add Recipe" component={AddRecipeScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
-    </ThemeProvider>
+              //@ts-ignore
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: "tomato",
+            tabBarInactiveTintColor: "gray",
+          })}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Search" component={SearchScreen} />
+          <Tab.Screen name="Add Recipe" component={AddRecipeScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

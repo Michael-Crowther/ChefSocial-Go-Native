@@ -9,7 +9,7 @@ import (
 type Recipe struct {
 	ID             uint           `gorm:"primaryKey"`
 	Name           string         `gorm:"not null"`
-	ImageUrls      []string       `gorm:"type:json"`
+	ImageUrls      string         `gorm:"type:text"`
 	CategoryID     uint           `gorm:"not null"`
 	Category       CategoryType   `gorm:"type:text;not null;index"`
 	Instructions   []Instruction  `gorm:"foreignKey:RecipeID"`

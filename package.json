@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@tanstack/react-query": "^5.66.9",
+    "expo": "^52.0.37"
+  }
+}
